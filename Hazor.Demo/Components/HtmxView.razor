@@ -1,0 +1,40 @@
+@switch ( HtmxMode )
+{
+    case HtmxMode.HxBoosted when Boosted is not null:
+        @Boosted
+        break;
+
+    case HtmxMode.HxRequest when NonBoosted is not null:
+        @NonBoosted
+        break;
+
+    default:
+        @Default
+        break;
+}
+@code
+{
+    [CascadingParameter]
+    public HtmxMode HtmxMode { get; set; }
+
+    /// <summary>
+    /// Content to render when the request is a hx-boosted request.
+    /// Falls back to <see cref="Default"/> when null.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? Boosted { get; set; }
+
+    /// <summary>
+    /// Content to render for HTMX requests.
+    /// Falls back to <see cref="Default"/> when null.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? NonBoosted { get; set; }
+
+    /// <summary>
+    /// Content to render for non-HTMX requests or when it is not necessary to distinguish.
+    /// This is all you need to provide when the only difference is which layout to use.
+    /// </summary>
+    [Parameter]
+    public required RenderFragment Default { get; set; }
+}
