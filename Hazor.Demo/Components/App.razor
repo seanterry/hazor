@@ -1,1 +1,21 @@
-﻿<Routes />
+﻿<CascadingValue Value="@HtmxMode">
+    <Routes />
+</CascadingValue>
+
+@code
+{
+    /// <summary>
+    /// The current HTTP context.
+    /// In static SSR, this is always available.
+    /// </summary>
+    [CascadingParameter]
+    public required HttpContext HttpContext { get; init; }
+
+    HtmxMode HtmxMode;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        HtmxMode = HttpContext.Request.GetHtmxMode();
+    }
+}
