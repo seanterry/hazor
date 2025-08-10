@@ -1,5 +1,5 @@
-﻿<CascadingValue Value="@HtmxMode">
-    <Routes />
+﻿<CascadingValue Value="@htmxMode">
+        <Routes/>
 </CascadingValue>
 
 @code
@@ -11,11 +11,11 @@
     [CascadingParameter]
     public required HttpContext HttpContext { get; init; }
 
-    HtmxMode HtmxMode;
+    HtmxMode htmxMode;
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        HtmxMode = HttpContext.Request.GetHtmxMode();
+        htmxMode = HttpContext.Request.GetHtmxMode();
     }
 }
