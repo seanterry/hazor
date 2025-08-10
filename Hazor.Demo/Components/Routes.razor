@@ -1,6 +1,18 @@
 ﻿<Router AppAssembly="typeof(Program).Assembly">
     <Found Context="routeData">
-        <RouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)" />
-        <FocusOnNavigate RouteData="routeData" Selector="h1" />
+        <RouteView RouteData="routeData" DefaultLayout="@LayoutType" />
     </Found>
 </Router>
+
+@code
+{
+    [CascadingParameter]
+    public HtmxMode HtmxMode { get; set; }
+
+    Type LayoutType => HtmxMode switch
+    {
+        HtmxMode.HxRequest => typeof(Layout.HtmxLayout),
+        HtmxMode.HxBoosted => typeof(Layout.HtmxLayout),
+        _ => typeof(Layout.MainLayout)
+    };
+}
